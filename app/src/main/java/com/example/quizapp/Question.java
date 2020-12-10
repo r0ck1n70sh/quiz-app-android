@@ -1,25 +1,33 @@
 package com.example.quizapp;
 
 
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Question {
+import java.io.Serializable;
+
+public class Question implements Serializable {
     public String category;
     public String difficulty;
     private String question;
     private String correctAnswer;
     private String[] wrongAnswer;
 
-    public Question questionFromJSON(JSONObject jsonObject) throws JSONException {
-        Question q = new Question();
-        q.category = jsonObject.getString("category");
-        q.difficulty = jsonObject.getString("difficulty");
-        q.question = jsonObject.getString(  "question");
-        q.correctAnswer = jsonObject.getString("correct_answer");
-        q.wrongAnswer = (String[]) jsonObject.get("wrong_answer");
+    public Question(JSONObject jsonObject) throws JSONException {
+        category = jsonObject.getString("category");
+        difficulty = jsonObject.getString("difficulty");
+        question = jsonObject.getString(  "question");
+        correctAnswer = jsonObject.getString("correct_answer");
+        wrongAnswer = getStringArray(jsonObject.getJSONArray("incorrect_answers"));
+    }
 
-        return q;
+    private String[] getStringArray(JSONArray jsonArray) throws JSONException {
+        Gson gson = new Gson();
+        String[] strings = gson.fromJson(String.valueOf(jsonArray), String[].class);
+        return strings;
     }
 
     public String[] getAllAnswers(){
