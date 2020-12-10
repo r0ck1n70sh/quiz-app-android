@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.INotificationSideChannel;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class PreparingQuizActivity extends AppCompatActivity {
+    public QuizInstance quizInstance;
     public User activityUser;
 
     public Question[] questions;
@@ -29,16 +31,21 @@ public class PreparingQuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preparing_quiz);
-
-        callUser();
     }
-    public void callQuestions(View view) throws JSONException {
+
+    public void onClickedNext(View view) throws JSONException {
+        addJsonRequestInQueue();
+    }
+
+    public void addJsonRequestInQueue(){
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Method.GET, URL, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
                     setResponseToQuestions(response);
-                    sendUserAndQuestions();
+                    callUser();
+                    buildQuizInstance();
+                    sendQuizInstance();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -49,7 +56,6 @@ public class PreparingQuizActivity extends AppCompatActivity {
             }
         }
         );
-
         SingletonQueue.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
 
@@ -62,16 +68,25 @@ public class PreparingQuizActivity extends AppCompatActivity {
         }
     }
 
-    public void sendUserAndQuestions() {
-        Intent nextActivity = new Intent(this, HandleQuizActivity.class);
-        nextActivity.putExtra("USER", activityUser);
-        nextActivity.putExtra("QUESTIONS", questions);
-        startActivity(nextActivity);
-    }
-
     public void callUser(){
         Intent previousIntent = getIntent();
         User user = (User) previousIntent.getSerializableExtra("USER");
         activityUser = user;
+    }
+
+    public void buildQuizInstance(){
+        quizInstance = new QuizInstance(activityUser);
+        quizInstance.setQuestions(questions);
+    }
+
+    public void sendQuizInstance() {
+        Intent nextActivity = new Intent(this, HandleQuizActivity.class);
+        prepareIntent(nextActivity);
+        startActivity(nextActivity);
+    }
+
+    public void prepareIntent(Intent intent){
+        intent.putExtra("NAME", "Preparing");
+        intent.putExtra("QUIZ_INSTANCE", quizInstance);
     }
 }

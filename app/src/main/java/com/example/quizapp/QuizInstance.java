@@ -30,4 +30,7 @@ public class QuizInstance implements Serializable {
         score += pointScored;
     }
 
+    public boolean questionsAvailable(){
+        return currQuestion < totalNumQuestion;
+    }
 }
