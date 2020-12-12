@@ -83,6 +83,7 @@ public class PreparingQuizActivity extends AppCompatActivity {
         Intent nextActivity = new Intent(this, HandleQuizActivity.class);
         prepareIntent(nextActivity);
         startActivity(nextActivity);
+        finish();
     }
 
     public void prepareIntent(Intent intent){

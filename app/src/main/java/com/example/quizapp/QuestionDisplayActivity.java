@@ -34,11 +34,11 @@ public class QuestionDisplayActivity extends AppCompatActivity {
     }
 
     public void submitAnswer(){
-
         int score = getScore();
-        Intent nextActivity = new Intent(this, HandleQuizActivity.class);
+        Intent nextActivity = new Intent();
         prepareActivity(nextActivity);
-        startActivity(nextActivity);
+        setResult(RESULT_OK, nextActivity);
+        finish();
     }
 
     public void prepareActivity(Intent intent){

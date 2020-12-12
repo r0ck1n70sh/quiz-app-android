@@ -33,4 +33,8 @@ public class QuizInstance implements Serializable {
     public boolean questionsAvailable(){
         return currQuestion < totalNumQuestion;
     }
+
+    public int getScore(){
+        return score;
+    }
 }

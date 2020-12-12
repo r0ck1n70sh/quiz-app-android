@@ -36,6 +36,18 @@ public class Question implements Serializable {
         return allAnswers;
     }
 
+    private void setCorrectAnsAtRandom(String [] answers){
+        int randomBtw0and4 = (int) (Math.random() * 4);
+        for(int i=0, j=0; i < 4; i++, j++) {
+            if(i == randomBtw0and4) {
+                answers[randomBtw0and4] = correctAnswer;
+                j--;
+            }
+            else
+                answers[i] = wrongAnswer[j];
+        }
+    }
+
     public Boolean checkAnswer(String answer){
         if(answer.equals(correctAnswer) )
             return Boolean.TRUE;
@@ -54,17 +66,4 @@ public class Question implements Serializable {
     public String getDifficulty(){
         return difficulty;
     }
-
-    private void setCorrectAnsAtRandom(String [] answers){
-        int randomBtw1and4 = (int) (Math.random() * 4) + 1;
-        for(int i=0, j=0; i < 4; i++, j++) {
-            if(i == randomBtw1and4) {
-                answers[randomBtw1and4] = correctAnswer;
-                j--;
-            }
-            else
-                answers[i] = wrongAnswer[j];
-        }
-    }
-
 }
