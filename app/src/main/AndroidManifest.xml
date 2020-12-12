@@ -11,9 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".QuestionDisplayActivity"
-            android:parentActivityName=".HandleQuizActivity">
-        </activity>
+        <activity android:name=".DisplayScoreActivity"></activity>
+        <activity
+            android:name=".QuestionDisplayActivity"
+            android:parentActivityName=".HandleQuizActivity"></activity>
         <activity android:name=".HandleQuizActivity" />
         <activity android:name=".PreparingQuizActivity" />
         <activity android:name=".MainActivity">

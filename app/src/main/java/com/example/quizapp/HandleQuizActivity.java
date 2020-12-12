@@ -72,6 +72,14 @@ public class HandleQuizActivity extends AppCompatActivity {
     }
 
     public void startDisplayScore(){
+        Intent endQuizActivity = new Intent(this, DisplayScoreActivity.class);
+        prepareEndQuizActivity(endQuizActivity);
+        startActivity(endQuizActivity);
+        finish();
+    }
 
+    public void prepareEndQuizActivity(Intent intent){
+        int totScore = quizInstance.getScore();
+        intent.putExtra("TOT_SCORE", totScore);
     }
 }

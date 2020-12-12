@@ -27,18 +27,28 @@ public class Question implements Serializable {
     private String[] getStringArray(JSONArray jsonArray) throws JSONException {
         Gson gson = new Gson();
         String[] strings = gson.fromJson(String.valueOf(jsonArray), String[].class);
+        checkStrings(strings);
         return strings;
     }
 
+    public void checkStrings(String[] strings){
+        if (strings.length < 3) {
+            String[] newString = new String[3];
+            for(int i=0; i<strings.length; i++)
+                newString[i] = strings[i];
+            strings = newString;
+        }
+    }
+
     public String[] getAllAnswers(){
-        String[] allAnswers = new String[4];
-        setCorrectAnsAtRandom(allAnswers);
+        String[] allAnswers = setCorrectAnsAtRandom();
         return allAnswers;
     }
 
-    private void setCorrectAnsAtRandom(String [] answers){
+    private String[] setCorrectAnsAtRandom(){
+        String[] answers = new String[4];
         int randomBtw0and4 = (int) (Math.random() * 4);
-        for(int i=0, j=0; i < 4; i++, j++) {
+        for(int i=0, j=0; i < answers.length && j < wrongAnswer.length; i++, j++) {
             if(i == randomBtw0and4) {
                 answers[randomBtw0and4] = correctAnswer;
                 j--;
@@ -46,6 +56,7 @@ public class Question implements Serializable {
             else
                 answers[i] = wrongAnswer[j];
         }
+        return answers;
     }
 
     public Boolean checkAnswer(String answer){
