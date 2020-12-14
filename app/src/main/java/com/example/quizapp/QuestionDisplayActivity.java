@@ -86,13 +86,16 @@ public class QuestionDisplayActivity extends AppCompatActivity {
 
     private void setOptionText(){
         String[] options = question.getAllAnswers();
-        for(int i=0; i<4; i++)
+        int numOfOptions = options.length;
+        for(int i=0; i<numOfOptions; i++)
             getAndSetTextToWidgets(options[i], i);
     }
 
     private void getAndSetTextToWidgets(String optionText, int index){
         RadioGroup radioGroup = findViewById(R.id.options);
-        RadioButton radioButton = (RadioButton) radioGroup.getChildAt(index);
+        RadioButton radioButton = new RadioButton(this);
         radioButton.setText(optionText);
+        radioButton.setId(index + 100);
+        radioGroup.addView(radioButton, index);
     }
 }

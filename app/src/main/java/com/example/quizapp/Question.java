@@ -46,9 +46,11 @@ public class Question implements Serializable {
     }
 
     private String[] setCorrectAnsAtRandom(){
-        String[] answers = new String[4];
-        int randomBtw0and4 = (int) (Math.random() * 4);
-        for(int i=0, j=0; i < answers.length && j < wrongAnswer.length; i++, j++) {
+        int numOptions = wrongAnswer.length + 1;
+        String[] answers = new String[numOptions];
+
+        int randomBtw0and4 = (int) (Math.random() * numOptions);
+        for(int i=0, j=0; i < numOptions; i++, j++) {
             if(i == randomBtw0and4) {
                 answers[randomBtw0and4] = correctAnswer;
                 j--;

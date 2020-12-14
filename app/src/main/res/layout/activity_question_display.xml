@@ -24,32 +24,7 @@
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/QuestionDisplayTextView">
-
-        <RadioButton
-            android:id="@+id/option1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/QuestionDisplayOption1" />
-
-        <RadioButton
-            android:id="@+id/option2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/QuestionDisplayOption2" />
-
-        <RadioButton
-            android:id="@+id/option3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/QuestionDisplayOption3" />
-
-        <RadioButton
-            android:id="@+id/option4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/QuestionDisplayOption4" />
-    </RadioGroup>
+        app:layout_constraintTop_toBottomOf="@+id/QuestionDisplayTextView"/>
 
     <Button
         android:id="@+id/button"
